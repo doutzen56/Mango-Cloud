@@ -39,7 +39,7 @@ var vm = new Vue({
         menuList: {},
         password: '',
         newPassword: '',
-        navTitle: "首页"
+        navTitle: "控制台"
     },
     methods: {
         getMenuList: function () {
