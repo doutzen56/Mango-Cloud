@@ -1,0 +1,14 @@
+version: '2'
+services:
+  mc-admin:
+    image: mc/admin
+    ports:
+      - "8080:8080"
+    environment:
+      - spring.profiles.active=dev
+  mc-api:
+    image: mc/api
+    ports:
+      - "8081:8081"
+    environment:
+      - spring.profiles.active=dev
