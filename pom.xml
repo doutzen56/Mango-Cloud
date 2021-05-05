@@ -4,7 +4,7 @@
     <groupId>com.mgcloud</groupId>
     <artifactId>mango-cloud</artifactId>
     <version>4.0.0</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>mango-cloud</name>
 

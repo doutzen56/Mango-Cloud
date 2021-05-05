@@ -5,7 +5,7 @@
     <groupId>com.mgcloud</groupId>
     <artifactId>mc-generator</artifactId>
     <version>1.1.0</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <description>mc-generator</description>
 
     <parent>

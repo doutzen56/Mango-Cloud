@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>节点列表</title>
+        <#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <#if shiro.hasPermission("customer:nodes:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+            </#if>
+            <#if shiro.hasPermission("customer:nodes:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+            </#if>
+            <#if shiro.hasPermission("customer:nodes:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+            </#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+<div v-show="!showList" class="panel panel-default">
+    <div class="panel-heading">{{title}}</div>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-2 control-label">节点名称</div>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" v-model="nodes.name"
+                       placeholder="节点名称"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">所属区域</div>
+            <div class="col-sm-10">
+                <select id="sel_area" v-model="nodes.areaId" style="width: 100%" class="form-control"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">运营商</div>
+            <div class="col-sm-10">
+                <select id="sel_provider" v-model="nodes.provdertype" style="width: 100%" class="form-control"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">公网IP</div>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" v-model="nodes.publicIp"
+                       placeholder="公网IP"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">内网IP</div>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" v-model="nodes.privateIp"
+                       placeholder="内网IP"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">状态</div>
+            <label class="radio-inline">
+                <input type="radio" name="status" value="0" v-model="nodes.status"/> 禁用
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="status" checked value="1" v-model="nodes.status"/> 正常
+            </label>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">记录</div>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" v-model="nodes.record"
+                       placeholder="记录"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">总带宽(MB)</div>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" v-model="nodes.bandwidthTotal"
+                       placeholder="总带宽"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">带宽临界点(MB)</div>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" v-model="nodes.bandwidthThreshold"
+                       placeholder="带宽临界点"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">当前带宽(MB)</div>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" v-model="nodes.bandwidthCurrent"
+                       placeholder="当前带宽"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label"></div>
+            <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..."
+                   @click="saveOrUpdate" value="确定"/>
+            &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+        </div>
+    </form>
+</div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/customer/nodes.js?_${.now?long}"></script>
+</body>
+</html>

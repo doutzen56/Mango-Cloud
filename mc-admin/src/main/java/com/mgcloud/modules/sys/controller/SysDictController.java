@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 数据字典
@@ -87,4 +88,18 @@ public class SysDictController {
         return R.ok();
     }
 
+    /**
+     * 根据字典类型查询字典列表
+     *
+     * @param type 字典类型
+     * @return type对应字典值
+     */
+    @RequestMapping("/queryDictByType/{type}")
+    public R queryDictByType(@PathVariable("type") String type) {
+        Object result = sysDictService.list()
+                .stream()
+                .filter(x -> x.getType().equals(type))
+                .collect(Collectors.toList());
+        return R.ok("data", result);
+    }
 }

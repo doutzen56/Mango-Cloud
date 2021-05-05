@@ -15,7 +15,7 @@ import javax.servlet.FilterConfig;
 import java.io.IOException;
 
 /**
- * Created by tzen
+ * 移除druid页面广告
  * tzen@e-veb.com
  * 2021/4/16 13:55
  */
