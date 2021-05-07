@@ -3,7 +3,7 @@ $(function () {
         url: baseURL + 'sys/log/list',
         datatype: "json",
         colModel: [
-            {label: 'id', name: 'id', width: 30, key: true},
+            // {label: 'id', name: 'id', width: 30, key: true},
             {label: '用户名', name: 'username', width: 50},
             {label: '用户操作', name: 'operation', width: 70},
             {label: '请求方法', name: 'method', width: 150},
@@ -13,12 +13,11 @@ $(function () {
             {label: '创建时间', name: 'createDate', width: 90}
         ],
         viewrecords: true,
-        height: 385,
+        //height: 385,
         rowNum: 10,
         rowList: [10, 30, 50],
         rownumbers: true,
         rownumWidth: 25,
-        autowidth: true,
         multiselect: false,
         pager: "#jqGridPager",
         jsonReader: {

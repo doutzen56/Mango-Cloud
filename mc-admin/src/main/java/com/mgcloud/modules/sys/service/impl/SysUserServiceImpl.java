@@ -6,6 +6,7 @@ package com.mgcloud.modules.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mgcloud.common.utils.DateUtils;
 import com.mgcloud.common.utils.PageUtils;
 import com.mgcloud.modules.sys.entity.SysDeptEntity;
 import com.mgcloud.modules.sys.entity.SysUserEntity;
@@ -68,7 +69,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveUser(SysUserEntity user) {
-        user.setCreateTime(new Date());
+        user.setCreateTime(DateUtils.LOCAL_DATETIME);
         //sha256加密
         String salt = RandomStringUtils.randomAlphanumeric(20);
         user.setSalt(salt);

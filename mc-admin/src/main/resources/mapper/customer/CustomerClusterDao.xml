@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mgcloud.modules.customer.dao.CustomerClusterDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mgcloud.modules.customer.entity.CustomerClusterEntity" id="customerClusterMap">
+                    <result property="id" column="id"/>
+                    <result property="customerId" column="customer_id"/>
+                    <result property="clusterId" column="cluster_id"/>
+            </resultMap>
+
+    <select id="queryById" resultType="Integer">
+        SELECT cluster_id
+        FROM mc_customer_cluster
+        WHERE customer_id = #{customerId}
+    </select>
+    <delete id="deleteBatch">
+        delete
+        from mc_customer_cluster
+        where customer_id in
+        <foreach item="customerId" collection="array" open="(" separator="," close=")">
+            #{customerId}
+        </foreach>
+    </delete>
+</mapper>

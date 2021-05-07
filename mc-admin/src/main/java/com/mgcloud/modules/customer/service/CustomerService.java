@@ -16,5 +16,8 @@ import java.util.Map;
 public interface CustomerService extends IService<CustomerEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+    void saveCustomer(CustomerEntity entity);
+    void updateCustomer(CustomerEntity entity);
+    void deleteBatch(Integer[] ids);
 }
 

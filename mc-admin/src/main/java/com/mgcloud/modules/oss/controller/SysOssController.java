@@ -3,15 +3,12 @@
 package com.mgcloud.modules.oss.controller;
 
 import com.google.gson.Gson;
-import com.mgcloud.common.utils.PageUtils;
-import com.mgcloud.common.utils.R;
+import com.mgcloud.common.utils.*;
 import com.mgcloud.common.validator.group.AliyunGroup;
 import com.mgcloud.common.validator.group.QcloudGroup;
 import com.mgcloud.modules.oss.entity.SysOssEntity;
 import com.mgcloud.modules.oss.service.SysOssService;
 import com.mgcloud.common.exception.RRException;
-import com.mgcloud.common.utils.ConfigConstant;
-import com.mgcloud.common.utils.Constant;
 import com.mgcloud.common.validator.ValidatorUtils;
 import com.mgcloud.common.validator.group.QiniuGroup;
 import com.mgcloud.modules.oss.cloud.CloudStorageConfig;
@@ -111,7 +108,7 @@ public class SysOssController {
         //保存文件信息
         SysOssEntity ossEntity = new SysOssEntity();
         ossEntity.setUrl(url);
-        ossEntity.setCreateDate(new Date());
+        ossEntity.setCreateDate(DateUtils.LOCAL_DATETIME);
         sysOssService.save(ossEntity);
 
         return R.ok().put("url", url);

@@ -5,6 +5,7 @@ package com.mgcloud.modules.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mgcloud.common.utils.DateUtils;
 import com.mgcloud.modules.sys.entity.SysDeptEntity;
 import com.mgcloud.modules.sys.service.*;
 import com.mgcloud.common.annotation.DataFilter;
@@ -64,7 +65,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveRole(SysRoleEntity role) {
-        role.setCreateTime(new Date());
+        role.setCreateTime(DateUtils.LOCAL_DATETIME);
         this.save(role);
 
         //保存角色与菜单关系

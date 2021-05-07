@@ -9,7 +9,8 @@ $(function () {
                         label: '${column.attrname}',
                         name: '${column.attrname}',
                         index: '${column.columnName}',
-                        width: 50,
+                        //width: 50,
+                        sortable: false,
                         key: true
                     },
                 #else
@@ -17,7 +18,8 @@ $(function () {
                         label: '${column.comments}',
                         name: '${column.attrname}',
                         index: '${column.columnName}',
-                        width: 80
+                        sortable: false,
+                        //width: 80
                     }#if($velocityCount != $columns.size()), #end
 
                 #end

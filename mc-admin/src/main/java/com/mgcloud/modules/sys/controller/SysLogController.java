@@ -33,6 +33,10 @@ public class SysLogController {
     @RequestMapping("/list")
     @RequiresPermissions("sys:log:list")
     public R list(@RequestParam Map<String, Object> params) {
+        if(params.get("sidx").equals("")){
+            params.put("sidx","id");
+            params.put("order","desc");
+        }
         PageUtils page = sysLogService.queryPage(params);
 
         return R.ok().put("page", page);

@@ -2,8 +2,11 @@ package com.mgcloud.modules.customer.controller;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import com.mgcloud.common.annotation.SysLog;
 import com.mgcloud.common.validator.ValidatorUtils;
+import com.mgcloud.modules.customer.service.ClusterNodeService;
 import com.mgcloud.modules.sys.shiro.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +34,8 @@ import com.mgcloud.common.utils.R;
 public class ClustersController {
     @Autowired
     private ClustersService clustersService;
-
+    @Autowired
+    private ClusterNodeService clusterNodeService;
     /**
      * 列表
      */
@@ -51,18 +55,24 @@ public class ClustersController {
     @RequiresPermissions("customer:clusters:info")
     public R info(@PathVariable("id") Integer id) {
         ClustersEntity clusters = clustersService.getById(id);
-
+        //查询节点
+        clusters.setNodeIdList(clusterNodeService.queryById(id));
         return R.ok().put("clusters", clusters);
     }
 
     /**
      * 保存
      */
+    @SysLog("新增集群")
     @RequestMapping("/save")
     @RequiresPermissions("customer:clusters:save")
     public R save(@RequestBody ClustersEntity clusters) {
+
+        ValidatorUtils.validateEntity(clusters);
+
         clusters.setCreatedBy(ShiroUtils.getUserName());
-        clustersService.save(clusters);
+
+        clustersService.saveCluster(clusters);
 
         return R.ok();
     }
@@ -70,11 +80,12 @@ public class ClustersController {
     /**
      * 修改
      */
+    @SysLog("修改集群")
     @RequestMapping("/update")
     @RequiresPermissions("customer:clusters:update")
     public R update(@RequestBody ClustersEntity clusters) {
         ValidatorUtils.validateEntity(clusters);
-        clustersService.updateById(clusters);
+        clustersService.updateCluster(clusters);
 
         return R.ok();
     }
@@ -82,12 +93,16 @@ public class ClustersController {
     /**
      * 删除
      */
+    @SysLog("删除集群")
     @RequestMapping("/delete")
     @RequiresPermissions("customer:clusters:delete")
     public R delete(@RequestBody Integer[] ids) {
-        clustersService.removeByIds(Arrays.asList(ids));
+        clustersService.deleteBatch(ids);
 
         return R.ok();
     }
-
+    @RequestMapping("/queryCulster")
+    public R queryMap() {
+        return R.ok("data", clustersService.list());
+    }
 }

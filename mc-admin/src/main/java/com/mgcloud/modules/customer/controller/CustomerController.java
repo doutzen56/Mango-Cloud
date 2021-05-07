@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Map;
 
 import com.mgcloud.common.validator.ValidatorUtils;
+import com.mgcloud.modules.customer.service.CustomerClusterService;
+import com.mgcloud.modules.sys.shiro.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +32,8 @@ import com.mgcloud.common.utils.R;
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
-
+    @Autowired
+    private CustomerClusterService customerClusterService;
     /**
      * 列表
      */
@@ -50,7 +53,7 @@ public class CustomerController {
     @RequiresPermissions("customer:customer:info")
     public R info(@PathVariable("id") Integer id) {
         CustomerEntity customer = customerService.getById(id);
-
+        customer.setClusterIdList(customerClusterService.queryById(id));
         return R.ok().put("customer", customer);
     }
 
@@ -60,8 +63,10 @@ public class CustomerController {
     @RequestMapping("/save")
     @RequiresPermissions("customer:customer:save")
     public R save(@RequestBody CustomerEntity customer) {
-        customerService.save(customer);
 
+        ValidatorUtils.validateEntity(customer);
+
+        customerService.saveCustomer(customer);
         return R.ok();
     }
 
@@ -71,8 +76,10 @@ public class CustomerController {
     @RequestMapping("/update")
     @RequiresPermissions("customer:customer:update")
     public R update(@RequestBody CustomerEntity customer) {
+
         ValidatorUtils.validateEntity(customer);
-        customerService.updateById(customer);
+
+        customerService.updateCustomer(customer);
 
         return R.ok();
     }
@@ -83,7 +90,8 @@ public class CustomerController {
     @RequestMapping("/delete")
     @RequiresPermissions("customer:customer:delete")
     public R delete(@RequestBody Integer[] ids) {
-        customerService.removeByIds(Arrays.asList(ids));
+
+        customerService.deleteBatch(ids);
 
         return R.ok();
     }

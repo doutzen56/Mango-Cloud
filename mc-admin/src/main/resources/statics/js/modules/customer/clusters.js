@@ -62,7 +62,7 @@ $(function () {
     });
     $.ajax({
         type: "POST",
-        url: baseURL + "customer/nodes/queryMap/-1",
+        url: baseURL + "customer/nodes/queryMap/1",
         contentType: "application/json",
         success: function (r) {
             if (r.code === 0) {
@@ -97,6 +97,7 @@ var vm = new Vue({
             vm.showList = false;
             vm.title = "新增";
             vm.clusters = {};
+            $("#sel_nodes").val("").trigger("change");
         },
         update: function (event) {
             var id = getSelectedRow();
@@ -111,6 +112,8 @@ var vm = new Vue({
         saveOrUpdate: function (event) {
             $('#btnSaveOrUpdate').button('loading').delay(1000).queue(function () {
                 var url = vm.clusters.id == null ? "customer/clusters/save" : "customer/clusters/update";
+                //获取选择的数据
+                vm.clusters.nodeIdList = $("#sel_nodes").select2("val");
                 $.ajax({
                     type: "POST",
                     url: baseURL + url,
@@ -163,6 +166,8 @@ var vm = new Vue({
         getInfo: function (id) {
             $.get(baseURL + "customer/clusters/info/" + id, function (r) {
                 vm.clusters = r.clusters;
+                //绑定下拉列表选择项
+                $("#sel_nodes").val(vm.clusters.nodeIdList).trigger("change");
             });
         },
         reload: function (event) {

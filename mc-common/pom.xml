@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>mc-common</artifactId>
     <packaging>jar</packaging>
-    <description>mc-common</description>
+    <description>公共组件</description>
 
     <build>
         <finalName>${project.artifactId}</finalName>

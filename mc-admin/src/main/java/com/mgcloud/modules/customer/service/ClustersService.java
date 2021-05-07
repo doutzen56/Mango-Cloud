@@ -16,5 +16,8 @@ import java.util.Map;
 public interface ClustersService extends IService<ClustersEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+    void saveCluster(ClustersEntity entity);
+    void updateCluster(ClustersEntity entity);
+    void deleteBatch(Integer[] ids);
 }
 

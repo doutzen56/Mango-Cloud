@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mgcloud.modules.customer.dao.ClusterNodeDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mgcloud.modules.customer.entity.ClusterNodeEntity" id="clusterNodeMap">
+        <result property="id" column="id"/>
+        <result property="clusterId" column="cluster_id"/>
+        <result property="nodeId" column="node_id"/>
+    </resultMap>
+
+    <select id="queryById" resultType="Integer">
+        SELECT node_id
+        FROM mc_cluster_node
+        WHERE cluster_id = #{clusterId}
+    </select>
+    <delete id="deleteBatch">
+        delete
+        from mc_cluster_node
+        where cluster_id in
+        <foreach item="clusterId" collection="array" open="(" separator="," close=")">
+            #{clusterId}
+        </foreach>
+    </delete>
+</mapper>

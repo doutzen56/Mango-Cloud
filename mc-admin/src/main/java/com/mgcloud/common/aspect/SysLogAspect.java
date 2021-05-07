@@ -5,6 +5,7 @@ package com.mgcloud.common.aspect;
 import com.google.gson.Gson;
 
 
+import com.mgcloud.common.utils.DateUtils;
 import com.mgcloud.common.utils.HttpContextUtils;
 import com.mgcloud.common.utils.IPUtils;
 import com.mgcloud.modules.sys.entity.SysUserEntity;
@@ -36,7 +37,17 @@ public class SysLogAspect {
     @Autowired
     private SysLogService sysLogService;
 
-    @Pointcut("@annotation(com.mgcloud.common.annotation.SysLog)")
+//    @Pointcut("@annotation(com.mgcloud.common.annotation.SysLog)")
+//    public void logPointCut() {
+//
+//    }
+    //修改拦截器
+    @Pointcut("@within(org.springframework.web.bind.annotation.RestController)" +
+            "&& (execution(public * com.mgcloud.modules..*.add*(..))" +
+            "|| execution(public * com.mgcloud.modules..*.update*(..))" +
+            "|| execution(public * com.mgcloud.modules..*.save*(..))" +
+            "|| execution(public * com.mgcloud.modules..*.delete*(..))" +
+            "|| execution(public * com.mgcloud.modules..*.insert*(..)))")
     public void logPointCut() {
 
     }
@@ -60,17 +71,17 @@ public class SysLogAspect {
         Method method = signature.getMethod();
 
         SysLogEntity sysLog = new SysLogEntity();
-        SysLog syslog = method.getAnnotation(SysLog.class);
-        if (syslog != null) {
-            //注解上的描述
-            sysLog.setOperation(syslog.value());
-        }
+//        SysLog syslog = method.getAnnotation(SysLog.class);
+//        if (syslog != null) {
+//            //注解上的描述
+//            sysLog.setOperation(syslog.value());
+//        }
 
         //请求的方法名
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = signature.getName();
         sysLog.setMethod(className + "." + methodName + "()");
-
+        sysLog.setOperation(methodName);
         //请求的参数
         Object[] args = joinPoint.getArgs();
         try {
@@ -90,7 +101,7 @@ public class SysLogAspect {
         sysLog.setUsername(username);
 
         sysLog.setTime(time);
-        sysLog.setCreateDate(new Date());
+        sysLog.setCreateDate(DateUtils.LOCAL_DATETIME);
         //保存系统日志
         sysLogService.save(sysLog);
     }

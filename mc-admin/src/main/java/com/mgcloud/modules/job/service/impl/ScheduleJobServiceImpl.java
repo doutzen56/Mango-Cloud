@@ -60,7 +60,7 @@
 //    @Override
 //    @Transactional(rollbackFor = Exception.class)
 //    public void saveJob(ScheduleJobEntity scheduleJob) {
-//        scheduleJob.setCreateTime(new Date());
+//        scheduleJob.setCreateTime(DateUtils.LOCAL_DATETIME);
 //        scheduleJob.setStatus(Constant.ScheduleStatus.NORMAL.getValue());
 //        this.save(scheduleJob);
 //

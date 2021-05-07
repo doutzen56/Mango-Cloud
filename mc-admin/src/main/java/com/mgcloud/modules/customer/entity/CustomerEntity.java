@@ -1,5 +1,6 @@
 package com.mgcloud.modules.customer.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -7,6 +8,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 客户列表
@@ -46,7 +48,7 @@ public class CustomerEntity implements Serializable {
     /**
      * Domain
      */
-    private Integer domain;
+    private String domain;
     /**
      * 带宽
      */
@@ -55,5 +57,10 @@ public class CustomerEntity implements Serializable {
      * DDOS带宽
      */
     private Integer ddosBandwidth;
+    /**
+     * 客户拥有的集群
+     */
+    @TableField(exist = false)
+    private List<Integer> clusterIdList;
 
 }

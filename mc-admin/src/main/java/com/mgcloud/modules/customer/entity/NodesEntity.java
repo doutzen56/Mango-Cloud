@@ -77,7 +77,7 @@ public class NodesEntity implements Serializable {
     /**
      * 所属区域
      */
-    private String areaName;
+    //private String areaName;
     /**
      * 供应商
      */

@@ -25,6 +25,10 @@ public class DateUtils {
      * 时间格式(yyyy-MM-dd HH:mm:ss)
      */
     public final static String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    /**
+     * 获取本地时间
+     */
+    public final static Date LOCAL_DATETIME = new Date();
 
     /**
      * 日期格式化 日期格式为：yyyy-MM-dd

@@ -9,24 +9,13 @@ $(function () {
                 index: 'name',
                 width: 80
             },
-            {
-                label: '状态',
-                name: 'status',
-                index: 'status',
-                width: 80
-            },
-            {
-                label: '创建时间',
-                name: 'createdTime',
-                index: 'created_time',
-                width: 80
-            },
-            {
-                label: '更新时间',
-                name: 'updatedTime',
-                index: 'updated_time',
-                width: 80
-            },
+            // {
+            //     label: '状态',
+            //     name: 'status',
+            //     index: 'status',
+            //     width: 80
+            // },
+
             {
                 label: '集群id',
                 name: 'clusterId',
@@ -56,6 +45,19 @@ $(function () {
                 name: 'createdTime',
                 index: 'created_time',
                 width: 80
+            },
+            {
+                label: '更新时间',
+                name: 'updatedTime',
+                index: 'updated_time',
+                width: 80
+            },
+            {
+                label: '状态', name: 'status', width: 60, formatter: function (value, options, row) {
+                    return value === 0 ?
+                        '<span class="label label-danger">禁用</span>' :
+                        '<span class="label label-success">正常</span>';
+                }
             }
         ],
         viewrecords: true,
@@ -83,6 +85,28 @@ $(function () {
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
+    //集群绑定
+    $.ajax({
+        type: "POST",
+        url: baseURL + "customer/clusters/queryCulster",
+        contentType: "application/json",
+        success: function (r) {
+            if (r.code === 0) {
+                for (var index in r.data) {
+                    var cur = r.data[index];
+                    $("#sel_cluster").append("<option value='" + cur.id + "'>" + cur.name + "</option>");
+                }
+            }
+        }
+    });
+    $("#sel_cluster").select2({
+        minimumResultsForSearch: -1,
+        language: {
+            noResults: function () {
+                return "没有数据...";
+            }
+        }
+    });
 });
 
 var vm = new Vue({
@@ -100,6 +124,7 @@ var vm = new Vue({
             vm.showList = false;
             vm.title = "新增";
             vm.customer = {};
+            $("#sel_cluster").val("").trigger("change");
         },
         update: function (event) {
             var id = getSelectedRow();
@@ -114,6 +139,7 @@ var vm = new Vue({
         saveOrUpdate: function (event) {
             $('#btnSaveOrUpdate').button('loading').delay(1000).queue(function () {
                 var url = vm.customer.id == null ? "customer/customer/save" : "customer/customer/update";
+                vm.customer.clusterIdList = $("#sel_cluster").select2("val");
                 $.ajax({
                     type: "POST",
                     url: baseURL + url,
@@ -166,6 +192,7 @@ var vm = new Vue({
         getInfo: function (id) {
             $.get(baseURL + "customer/customer/info/" + id, function (r) {
                 vm.customer = r.customer;
+                $("#sel_cluster").val(vm.customer.clusterIdList).trigger("change");
             });
         },
         reload: function (event) {

@@ -164,6 +164,8 @@ var vm = new Vue({
             vm.showList = false;
             vm.title = "新增";
             vm.nodes = {};
+            $("#sel_area").val("").trigger("change");
+            $("#sel_provider").val("").trigger("change");
         },
         update: function (event) {
             var id = getSelectedRow();
@@ -179,7 +181,7 @@ var vm = new Vue({
             $('#btnSaveOrUpdate').button('loading').delay(1000).queue(function () {
                 var url = vm.nodes.id == null ? "customer/nodes/save" : "customer/nodes/update";
                 vm.nodes.areaId=$("#sel_area").select2("val");
-                vm.nodes.areaName=$("#sel_area").select2("data")[0].text;
+                //vm.nodes.areaName=$("#sel_area").select2("data")[0].text;
                 vm.nodes.provdertype=$("#sel_provider").select2("val");
                 $.ajax({
                     type: "POST",
