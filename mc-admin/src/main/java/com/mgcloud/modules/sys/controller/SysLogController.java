@@ -2,6 +2,7 @@
 
 package com.mgcloud.modules.sys.controller;
 
+import com.mgcloud.common.utils.Constant;
 import com.mgcloud.common.utils.PageUtils;
 import com.mgcloud.common.utils.R;
 import com.mgcloud.modules.sys.service.SysLogService;
@@ -33,9 +34,9 @@ public class SysLogController {
     @RequestMapping("/list")
     @RequiresPermissions("sys:log:list")
     public R list(@RequestParam Map<String, Object> params) {
-        if(params.get("sidx").equals("")){
-            params.put("sidx","id");
-            params.put("order","desc");
+        if(params.get(Constant.ORDER_FIELD).equals("")){
+            params.put(Constant.ORDER_FIELD,"id");
+            params.put(Constant.ORDER,Constant.DESC);
         }
         PageUtils page = sysLogService.queryPage(params);
 

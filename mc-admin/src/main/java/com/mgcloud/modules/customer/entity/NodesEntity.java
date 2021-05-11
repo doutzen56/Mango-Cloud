@@ -81,6 +81,6 @@ public class NodesEntity implements Serializable {
     /**
      * 供应商
      */
-    private Integer provdertype;
+    private Integer providerType;
 
 }

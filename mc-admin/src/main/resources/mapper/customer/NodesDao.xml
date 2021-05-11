@@ -19,7 +19,7 @@
                     <result property="createdBy" column="created_by"/>
                     <result property="areaId" column="area_id"/>
                     <result property="areaName" column="area_name"/>
-                    <result property="provdertype" column="provderType"/>
+                    <result property="providerType" column="provider_type"/>
             </resultMap>
 
 

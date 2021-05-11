@@ -24,6 +24,16 @@ public class ColumnEntity {
     //auto_increment
     private String extra;
 
+    private String isNull;
+
+    public String getIsNull() {
+        return isNull;
+    }
+
+    public void setIsNull(String isNull) {
+        this.isNull = isNull;
+    }
+
     public String getColumnName() {
         return columnName;
     }

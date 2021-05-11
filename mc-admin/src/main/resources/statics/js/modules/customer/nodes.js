@@ -182,7 +182,7 @@ var vm = new Vue({
                 var url = vm.nodes.id == null ? "customer/nodes/save" : "customer/nodes/update";
                 vm.nodes.areaId=$("#sel_area").select2("val");
                 //vm.nodes.areaName=$("#sel_area").select2("data")[0].text;
-                vm.nodes.provdertype=$("#sel_provider").select2("val");
+                vm.nodes.providerType=$("#sel_provider").select2("val");
                 $.ajax({
                     type: "POST",
                     url: baseURL + url,
@@ -236,7 +236,7 @@ var vm = new Vue({
             $.get(baseURL + "customer/nodes/info/" + id, function (r) {
                 vm.nodes = r.nodes;
                 $("#sel_area").val(vm.nodes.areaId).trigger("change");
-                $("#sel_provider").val(vm.nodes.provdertype).trigger("change");
+                $("#sel_provider").val(vm.nodes.providerType).trigger("change");
             });
         },
         reload: function (event) {

@@ -18,7 +18,7 @@ import java.util.Date;
  * @date ${datetime}
  */
 @Data
-@TableName("${tableName}")
+@TableName("${tableName}" )
 public class ${className}Entity implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -28,6 +28,9 @@ public class ${className}Entity implements Serializable {
          */
         #if($column.columnName == $pk.columnName)
         @TableId
+        #end
+        #if($column.isNull== "NO" && $column.columnName != $pk.columnName)
+        @NotBlank(message = "$column.comments不能为空", groups = {AddGroup.class, UpdateGroup.class})
         #end
     private $column.attrType $column.attrname;
     #end
