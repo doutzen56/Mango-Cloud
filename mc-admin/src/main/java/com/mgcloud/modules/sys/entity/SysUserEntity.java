@@ -5,6 +5,7 @@ package com.mgcloud.modules.sys.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mgcloud.common.validator.group.AddGroup;
 import com.mgcloud.common.validator.group.UpdateGroup;
@@ -77,6 +78,7 @@ public class SysUserEntity implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     /**
@@ -90,4 +92,25 @@ public class SysUserEntity implements Serializable {
      */
     @TableField(exist = false)
     private String deptName;
+
+    /**
+     * skype
+     */
+    private String skype;
+
+    /**
+     * 关联客户
+     */
+    private Integer customerId;
+
+    /**
+     * 语言
+     */
+    private String language;
+
+    /**
+     * 更新时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date updateTime;
 }

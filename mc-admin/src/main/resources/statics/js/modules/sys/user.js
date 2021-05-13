@@ -42,6 +42,28 @@ $(function () {
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
+    $.ajax({
+        type: "POST",
+        url: baseURL + "customer/customer/queryList",
+        contentType: "application/json",
+        success: function (r) {
+            if (r.code === 0) {
+                for (var index in r.data) {
+                    var cur = r.data[index];
+                    $("#sel_customer").append("<option value='" + cur.id + "'>" + cur.name + "</option>");
+                }
+            }
+        }
+    });
+    $("#sel_customer").select2({
+        minimumResultsForSearch: -1,
+        maximumSelectionLength:1,
+        language: {
+            noResults: function () {
+                return "没有数据...";
+            }
+        }
+    });
 });
 var setting = {
     data: {
@@ -148,6 +170,8 @@ var vm = new Vue({
         },
         saveOrUpdate: function () {
             var url = vm.user.userId == null ? "sys/user/save" : "sys/user/update";
+            vm.user.language="zh_cn";
+            vm.user.customerId = $("#sel_customer").select2("val")[0];
             $.ajax({
                 type: "POST",
                 url: baseURL + url,
@@ -168,7 +192,7 @@ var vm = new Vue({
             $.get(baseURL + "sys/user/info/" + userId, function (r) {
                 vm.user = r.user;
                 vm.user.password = null;
-
+                $("#sel_customer").val(vm.user.customerId).trigger("change");
                 vm.getDept();
             });
         },

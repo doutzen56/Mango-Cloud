@@ -96,8 +96,7 @@ var vm = new Vue({
         add: function () {
             vm.showList = false;
             vm.title = "新增";
-            vm.clusters = {};
-            $("#sel_nodes").val("").trigger("change");
+            vm.clusters = {status: 1};
         },
         update: function (event) {
             var id = getSelectedRow();

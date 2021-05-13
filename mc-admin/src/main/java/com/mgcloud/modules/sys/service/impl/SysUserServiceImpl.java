@@ -73,6 +73,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
         //sha256加密
         String salt = RandomStringUtils.randomAlphanumeric(20);
         user.setSalt(salt);
+        user.setUpdateTime(DateUtils.LOCAL_DATETIME);
         user.setPassword(ShiroUtils.sha256(user.getPassword(), user.getSalt()));
         this.save(user);
 
@@ -89,6 +90,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
             SysUserEntity userEntity = this.getById(user.getUserId());
             user.setPassword(ShiroUtils.sha256(user.getPassword(), userEntity.getSalt()));
         }
+        user.setUpdateTime(DateUtils.LOCAL_DATETIME);
         this.updateById(user);
 
         //保存用户与角色关系
@@ -100,6 +102,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
     public boolean updatePassword(Long userId, String password, String newPassword) {
         SysUserEntity userEntity = new SysUserEntity();
         userEntity.setPassword(newPassword);
+        userEntity.setUpdateTime(DateUtils.LOCAL_DATETIME);
         return this.update(userEntity,
                 new QueryWrapper<SysUserEntity>().eq("user_id", userId).eq("password", password));
     }

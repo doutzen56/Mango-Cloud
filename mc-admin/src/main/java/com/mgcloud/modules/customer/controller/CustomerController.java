@@ -96,4 +96,8 @@ public class CustomerController {
         return R.ok();
     }
 
+    @RequestMapping("/queryList")
+    public R queryMap() {
+        return R.ok("data", customerService.list());
+    }
 }

@@ -163,9 +163,7 @@ var vm = new Vue({
         add: function () {
             vm.showList = false;
             vm.title = "新增";
-            vm.nodes = {};
-            $("#sel_area").val("").trigger("change");
-            $("#sel_provider").val("").trigger("change");
+            vm.nodes = {status: 1};
         },
         update: function (event) {
             var id = getSelectedRow();
