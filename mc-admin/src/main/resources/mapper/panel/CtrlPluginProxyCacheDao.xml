@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mgcloud.modules.panel.dao.CtrlPluginProxyCacheDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mgcloud.modules.panel.entity.CtrlPluginProxyCacheEntity" id="ctrlPluginProxyCacheMap">
+                    <result property="id" column="id"/>
+                    <result property="siteId" column="site_id"/>
+                    <result property="cacheState" column="cache_state"/>
+                    <result property="cacheZone" column="cache_zone"/>
+                    <result property="cacheKey" column="cache_key"/>
+                    <result property="cacheMethod" column="cache_method"/>
+                    <result property="cacheHttpStatus" column="cache_http_status"/>
+                    <result property="cacheBrowser" column="cache_browser"/>
+                    <result property="cacheEdge" column="cache_edge"/>
+            </resultMap>
+
+
+</mapper>

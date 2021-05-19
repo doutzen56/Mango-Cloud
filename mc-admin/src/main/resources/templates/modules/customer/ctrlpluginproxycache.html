@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>代理缓存</title>
+        <#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <#if shiro.hasPermission("customer:ctrlpluginproxycache:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+            </#if>
+            <#if shiro.hasPermission("customer:ctrlpluginproxycache:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+            </#if>
+            <#if shiro.hasPermission("customer:ctrlpluginproxycache:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+            </#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+                                                                            <div class="form-group">
+                        <div class="col-sm-2 control-label">站点ID</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlPluginProxyCache.siteId" placeholder="站点ID"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">是否开启缓存</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlPluginProxyCache.cacheState" placeholder="是否开启缓存"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">缓存区域</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlPluginProxyCache.cacheZone" placeholder="缓存区域"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">缓存key</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlPluginProxyCache.cacheKey" placeholder="缓存key"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">http方法</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlPluginProxyCache.cacheMethod" placeholder="http方法"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">http状态码</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlPluginProxyCache.cacheHttpStatus" placeholder="http状态码"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">浏览器缓存时间</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlPluginProxyCache.cacheBrowser" placeholder="浏览器缓存时间"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">边缘节点缓存时间</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlPluginProxyCache.cacheEdge" placeholder="边缘节点缓存时间"/>
+                        </div>
+                    </div>
+                                        <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..." @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/customer/ctrlpluginproxycache.js?_${.now?long}"></script>
+</body>
+</html>

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-    import java.io.Serializable;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -19,14 +19,14 @@ import java.util.Date;
 public class ProvincialEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-            /**
-         * 
-         */
-                @TableId
-            private Integer id;
-            /**
-         * 份
-         */
-            private String name;
-    
+    /**
+     *
+     */
+    @TableId
+    private Integer id;
+    /**
+     * 份
+     */
+    private String name;
+
 }

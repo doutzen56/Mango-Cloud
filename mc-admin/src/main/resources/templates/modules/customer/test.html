@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>测试</title>
+    <#include "/header.html">
+</head>
+<body>
+<div v-show="!showList" class="panel panel-default">
+    <!--<div class="panel-heading">修改</div>-->
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">CDN设置</a></li>
+        <li><a href="#dns" data-toggle="tab">DNS设置</a></li>
+        <li><a href="#white" data-toggle="tab">白名单</a></li>
+        <li><a href="#black" data-toggle="tab">黑名单</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="home">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">集群名称</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="clusters.name"
+                               placeholder="集群名称"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">地理位置</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="clusters.location"
+                               placeholder="地理位置"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">记录</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="clusters.record"
+                               placeholder="记录"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">节点</div>
+                    <div class="col-sm-10">
+                        <select id="sel_nodes" style="width: 100%" multiple="multiple" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label"></div>
+                    <input type="button" class="btn btn-primary" id="xxx" data-loading-text="保存中..."
+                           @click="saveOrUpdate" value="确定"/>
+                    &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane fade" id="dns">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">节点名称</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="nodes.name"
+                               placeholder="节点名称"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">所属区域</div>
+                    <div class="col-sm-10">
+                        <select id="sel_area" style="width: 100%" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">运营商</div>
+                    <div class="col-sm-10">
+                        <select id="sel_provider" style="width: 100%" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">公网IP</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="nodes.publicIp"
+                               placeholder="公网IP"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">内网IP</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="nodes.privateIp"
+                               placeholder="内网IP"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">状态</div>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="0" v-model="nodes.status"/> 禁用
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" checked value="1" v-model="nodes.status"/> 正常
+                    </label>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">记录</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="nodes.record"
+                               placeholder="记录"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">总带宽(MB)</div>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" v-model="nodes.bandwidthTotal"
+                               placeholder="总带宽"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">带宽临界点(MB)</div>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" v-model="nodes.bandwidthThreshold"
+                               placeholder="带宽临界点"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">当前带宽(MB)</div>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" v-model="nodes.bandwidthCurrent"
+                               placeholder="当前带宽"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label"></div>
+                    <input type="button" class="btn btn-primary" id="ccc" data-loading-text="保存中..."
+                           @click="saveOrUpdate" value="确定"/>
+                    &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane fade" id="white">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">客户名称</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="customer.name"
+                               placeholder="客户名称"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">Domain</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="customer.domain"
+                               placeholder="Domain"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">带宽</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="customer.bandwidth"
+                               placeholder="带宽"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">DDOS带宽</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="customer.ddosBandwidth"
+                               placeholder="DDOS带宽"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">节点</div>
+                    <div class="col-sm-10">
+                        <select id="bbb" style="width: 100%" multiple="multiple" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">状态</div>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="0" v-model="customer.status"/> 禁用
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="1" v-model="customer.status"/> 正常
+                    </label>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label"></div>
+                    <input type="button" class="btn btn-primary" id="aaa" data-loading-text="保存中..."
+                           @click="saveOrUpdate" value="确定"/>
+                    &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane fade" id="black">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">客户名称</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="customer.name"
+                               placeholder="客户名称"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">Domain</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="customer.domain"
+                               placeholder="Domain"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">带宽</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="customer.bandwidth"
+                               placeholder="带宽"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">DDOS带宽</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="customer.ddosBandwidth"
+                               placeholder="DDOS带宽"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">节点</div>
+                    <div class="col-sm-10">
+                        <select id="sel_cluster" style="width: 100%" multiple="multiple" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">状态</div>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="0" v-model="customer.status"/> 禁用
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="1" v-model="customer.status"/> 正常
+                    </label>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label"></div>
+                    <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..."
+                           @click="saveOrUpdate" value="确定"/>
+                    &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="${request.contextPath}/statics/js/modules/customer/test.js?_${.now?long}"></script>
+</body>
+</html>

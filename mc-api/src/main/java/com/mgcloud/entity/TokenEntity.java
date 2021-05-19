@@ -37,3 +37,4 @@ public class TokenEntity implements Serializable {
     private Date updateTime;
 
 }
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mgcloud.modules.panel.dao.CtrlSiteDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mgcloud.modules.panel.entity.CtrlSiteEntity" id="ctrlSiteMap">
+                    <result property="id" column="id"/>
+                    <result property="name" column="name"/>
+                    <result property="type" column="type"/>
+                    <result property="status" column="status"/>
+                    <result property="retries" column="retries"/>
+                    <result property="enableWebsocket" column="enable_websocket"/>
+                    <result property="key" column="key"/>
+                    <result property="timeoutConnect" column="timeout_connect"/>
+                    <result property="timeoutSend" column="timeout_send"/>
+                    <result property="deptId" column="dept_id"/>
+                    <result property="timeoutRead" column="timeout_read"/>
+                    <result property="createdBy" column="created_by"/>
+                    <result property="createdTime" column="created_time"/>
+            </resultMap>
+
+
+</mapper>

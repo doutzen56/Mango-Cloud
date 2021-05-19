@@ -44,4 +44,11 @@ public class ApiTestController {
         return R.ok().put("msg", "无需token也能访问。。。");
     }
 
+    @GetMapping("testJson")
+    @ApiOperation("忽略Token验证测试")
+    public R testJson() {
+
+        return R.ok();
+    }
+
 }

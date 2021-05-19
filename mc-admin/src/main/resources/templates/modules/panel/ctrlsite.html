@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>站点列表</title>
+        <#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <#if shiro.hasPermission("panel:ctrlsite:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+            </#if>
+            <#if shiro.hasPermission("panel:ctrlsite:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+            </#if>
+            <#if shiro.hasPermission("panel:ctrlsite:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+            </#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+                                                                            <div class="form-group">
+                        <div class="col-sm-2 control-label">站点名称</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlSite.name" placeholder="站点名称"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">站点类型</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlSite.type" placeholder="站点类型"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">是否启用</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlSite.status" placeholder="是否启用"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">重试次数</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlSite.retries" placeholder="重试次数"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">是否开启websocket</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlSite.enableWebsocket" placeholder="是否开启websocket"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">预留字段</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlSite.key" placeholder="预留字段"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">连接数</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlSite.timeoutConnect" placeholder="连接数"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">发送数</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlSite.timeoutSend" placeholder="发送数"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">部门ID</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlSite.deptId" placeholder="部门ID"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">读取数</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlSite.timeoutRead" placeholder="读取数"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">创建人</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlSite.createdBy" placeholder="创建人"/>
+                        </div>
+                    </div>
+                                                                <div class="form-group">
+                        <div class="col-sm-2 control-label">创建时间</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="ctrlSite.createdTime" placeholder="创建时间"/>
+                        </div>
+                    </div>
+                                        <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..." @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/panel/ctrlsite.js?_${.now?long}"></script>
+</body>
+</html>

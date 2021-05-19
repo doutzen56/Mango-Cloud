@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mgcloud.modules.panel.dao.CtrlSiteRealDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mgcloud.modules.panel.entity.CtrlSiteRealEntity" id="ctrlSiteRealMap">
+                    <result property="id" column="id"/>
+                    <result property="siteId" column="site_id"/>
+                    <result property="ip" column="ip"/>
+                    <result property="port" column="port"/>
+                    <result property="weight" column="weight"/>
+            </resultMap>
+
+
+</mapper>
