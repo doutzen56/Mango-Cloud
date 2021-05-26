@@ -3,6 +3,7 @@ package com.mgcloud.modules.customer.service.impl;
 import com.mgcloud.common.utils.DateUtils;
 import com.mgcloud.modules.customer.dao.NodesDao;
 import com.mgcloud.modules.customer.service.ClusterNodeService;
+import com.mgcloud.modules.sys.shiro.ShiroUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +41,7 @@ public class ClustersServiceImpl extends ServiceImpl<ClustersDao, ClustersEntity
     @Transactional(rollbackFor = Exception.class)
     public void saveCluster(ClustersEntity entity) {
         entity.setCreatedTime(DateUtils.LOCAL_DATETIME);
+        entity.setCreatedBy(ShiroUtils.getUserName());
         this.save(entity);
         //保存集群与节点之前的关系
         clusterNodeService.saveOrUpdate(entity.getId(), entity.getNodeIdList());

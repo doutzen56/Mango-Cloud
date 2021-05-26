@@ -70,8 +70,6 @@ public class ClustersController {
 
         ValidatorUtils.validateEntity(clusters);
 
-        clusters.setCreatedBy(ShiroUtils.getUserName());
-
         clustersService.saveCluster(clusters);
 
         return R.ok();
